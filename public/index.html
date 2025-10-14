@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Basecamp Gear - Rental Alat Outdoor & Camping</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/slider.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo-container fade-in">
+
+        <img src="/images/logo.png" alt="Basecamp Gear Logo" class="logo-img">
+        <h1 class="logo-text">Basecamp Gear</h1>
+      </div>
+      <ul class="nav-links fade-in">
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/order">Sewa Sekarang</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <h2 class="hero-title">Sewa Alat Outdoor untuk Petualangan Anda</h2>
+      <p class="hero-subtitle">Rental perlengkapan camping, hiking, dan climbing berkualitas dengan harga terjangkau.</p>
+      <a href="/order" class="cta pulse">Mulai Sewa Sekarang</a>
+    </div>
+  </header>
+
+  <!-- Intro Section -->
+  <section class="intro">
+    <div class="container">
+      <h3 class="section-title slide-up">Mengapa Sewa di Basecamp Gear?</h3>
+      <p class="slide-up">Tidak perlu beli alat mahal untuk sekali pakai. Sewa saja di Basecamp Gear dan nikmati petualangan outdoor tanpa beban!</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h3 class="section-title slide-up">Keunggulan Kami</h3>
+      <div class="features-grid">
+        <div class="feature-card slide-up" style="animation-delay: 0.1s;">
+          <div class="feature-icon">🏕️</div>
+          <h3>Peralatan Lengkap</h3>
+          <p>Tenda, sleeping bag, carrier, kompor portable, dan perlengkapan camping lainnya.</p>
+        </div>
+        <div class="feature-card slide-up" style="animation-delay: 0.2s;">
+          <div class="feature-icon">✅</div>
+          <h3>Kualitas Terjamin</h3>
+          <p>Semua peralatan terawat dengan baik dan siap pakai untuk kondisi outdoor ekstrem.</p>
+        </div>
+        <div class="feature-card slide-up" style="animation-delay: 0.3s;">
+          <div class="feature-icon">💰</div>
+          <h3>Harga Terjangkau</h3>
+          <p>Sistem sewa harian, mingguan, atau bulanan dengan harga yang ramah di kantong.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Price List Slider -->
+  <section class="pricelist-section">
+    <div class="container">
+      <h3 class="section-title slide-up">📋 Daftar Harga Sewa</h3>
+      <p class="subtitle slide-up">Geser untuk melihat katalog lengkap peralatan kami</p>
+      
+      <div class="slider-container zoom-in">
+        <button class="slider-btn prev" onclick="changeSlide(-1)" aria-label="Previous">❮</button>
+        
+        <div class="slider">
+          <div class="slide active">
+            <img src="/images/pricelist/foto1.png" alt="Price List 1 - Aksesoris Camping">
+          </div>
+          <div class="slide">
+            <img src="/images/pricelist/foto2.png" alt="Price List 2 - Peralatan Gunung">
+          </div>
+          <div class="slide">
+            <img src="/images/pricelist/foto3.png" alt="Price List 3 - Tenda & Camping">
+          </div>
+          <div class="slide">
+            <img src="/images/pricelist/foto4.png" alt="Price List 4 - Perlengkapan Lainnya">
+          </div>
+        </div>
+        
+        <button class="slider-btn next" onclick="changeSlide(1)" aria-label="Next">❯</button>
+      </div>
+      
+      <!-- Slider Dots -->
+      <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1)" aria-label="Slide 1"></span>
+        <span class="dot" onclick="currentSlide(2)" aria-label="Slide 2"></span>
+        <span class="dot" onclick="currentSlide(3)" aria-label="Slide 3"></span>
+        <span class="dot" onclick="currentSlide(4)" aria-label="Slide 4"></span>
+      </div>
+      
+      <div class="cta-center">
+        <a href="/order" class="cta pulse">Sewa Sekarang</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="container">
+      <h3 class="section-title slide-up">Cara Sewa di Basecamp Gear</h3>
+      <div class="steps">
+        <div class="step slide-up" style="animation-delay: 0.1s;">
+          <span class="step-number">1</span>
+          <h4>Pilih Alat</h4>
+          <p>Pilih peralatan yang ingin disewa melalui katalog kami.</p>
+        </div>
+        <div class="step slide-up" style="animation-delay: 0.2s;">
+          <span class="step-number">2</span>
+          <h4>Isi Data & Tanggal</h4>
+          <p>Tentukan tanggal sewa dan isi data diri untuk konfirmasi.</p>
+        </div>
+        <div class="step slide-up" style="animation-delay: 0.3s;">
+          <span class="step-number">3</span>
+          <h4>Ambil & Nikmati</h4>
+          <p>Ambil alat di lokasi kami dan nikmati petualangan outdoor Anda!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="/images/logo.png" alt="Basecamp Gear Logo" class="footer-logo-img">
+          <h3>Basecamp Gear</h3>
+        </div>
+        <div class="footer-info">
+          <p><strong>📍 Alamat:</strong><br>Dusun Jambu, Desa Tamansari, Kecamatan Licin</p>
+          <p><strong>📱 Telepon:</strong><br>083 131 251 615</p>
+          <p><strong>📷 Instagram:</strong><br>@basecampgear.id</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Basecamp Gear - Rental Alat Outdoor Terpercaya</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/slider.js"></script>
+  <script src="/js/animations.js"></script>
+</body>
+</html>

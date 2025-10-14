@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Pemesanan - Basecamp Gear</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/order.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo-container">
+        <img src="/images/logo.png" alt="Basecamp Gear Logo" class="logo-img">
+        <h1 class="logo-text">Basecamp Gear</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/order">Sewa Sekarang</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Order Container -->
+  <div class="order-container">
+    <div class="container">
+      <!-- Order Header -->
+      <div class="order-header">
+        <h2>🏕️ Katalog Alat Outdoor</h2>
+        <p class="subtitle">Pilih peralatan yang ingin disewa untuk petualangan Anda</p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="category-filter">
+        <button class="filter-btn active" onclick="filterCategory('all')">Semua</button>
+        <button class="filter-btn" onclick="filterCategory('Tenda')">🏕️ Tenda</button>
+        <button class="filter-btn" onclick="filterCategory('Carrier')">🎒 Carrier</button>
+        <button class="filter-btn" onclick="filterCategory('Sleeping Bag')">🛏️ Sleeping Bag</button>
+        <button class="filter-btn" onclick="filterCategory('Kompor')">🔥 Kompor</button>
+        <button class="filter-btn" onclick="filterCategory('Aksesoris')">⚙️ Aksesoris</button>
+      </div>
+
+      <!-- Equipment Catalog Grid -->
+      <div class="equipment-catalog" id="equipmentCatalog">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading katalog...</p>
+        </div>
+      </div>
+
+      <!-- Shopping Cart -->
+      <div class="cart-section" id="cartSection" style="display:none;">
+        <h3>🛒 Keranjang Sewa</h3>
+        <div id="cartItems"></div>
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Total Item:</span>
+            <strong id="totalItems">0</strong>
+          </div>
+          <div class="summary-row">
+            <span>Durasi Sewa:</span>
+            <strong id="rentalDuration">-</strong>
+          </div>
+          <div class="summary-row total">
+            <span>Total Harga:</span>
+            <strong id="totalPrice">Rp 0</strong>
+          </div>
+          <button class="btn-checkout" onclick="showCheckoutForm()">
+            Lanjut ke Checkout
+          </button>
+        </div>
+      </div>
+
+      <!-- Checkout Form -->
+      <div class="checkout-section" id="checkoutSection" style="display:none;">
+        <div class="checkout-header">
+          <div class="checkout-icon">📝</div>
+          <h3>Form Data Penyewa</h3>
+          <p class="checkout-subtitle">Lengkapi data Anda untuk melanjutkan pemesanan</p>
+        </div>
+
+        <form id="checkoutForm">
+          <!-- Customer Info Section -->
+          <div class="form-section">
+            <div class="section-header">
+              <span class="section-icon">👤</span>
+              <h4>Informasi Pribadi</h4>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="customerName">
+                  <span class="label-icon">👨</span>
+                  Nama Lengkap <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="text" id="customerName" placeholder="Contoh: Budi Santoso" required>
+                  <span class="input-icon">✓</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="customerPhone">
+                  <span class="label-icon">📱</span>
+                  Nomor WhatsApp <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="tel" id="customerPhone" placeholder="08xxxxxxxxxx" pattern="[0-9]{10,13}" required>
+                  <span class="input-icon">✓</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="customerEmail">
+                <span class="label-icon">📧</span>
+                Email (opsional)
+              </label>
+              <div class="input-wrapper">
+                <input type="email" id="customerEmail" placeholder="email@example.com">
+                <span class="input-icon">✓</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rental Period Section -->
+          <div class="form-section">
+            <div class="section-header">
+              <span class="section-icon">📅</span>
+              <h4>Periode Sewa</h4>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="startDate">
+                  <span class="label-icon">📆</span>
+                  Tanggal Ambil <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="date" id="startDate" required onchange="calculateTotal()">
+                  <span class="input-icon">📅</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="endDate">
+                  <span class="label-icon">📆</span>
+                  Tanggal Kembali <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="date" id="endDate" required onchange="calculateTotal()">
+                  <span class="input-icon">📅</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rental-duration-info">
+              <div class="duration-card">
+                <span class="duration-icon">⏱️</span>
+                <div>
+                  <p class="duration-label">Durasi Sewa</p>
+                  <p class="duration-value" id="durationDisplay">Pilih tanggal</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes Section -->
+          <div class="form-section">
+            <div class="section-header">
+              <span class="section-icon">📝</span>
+              <h4>Catatan Tambahan</h4>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">
+                <span class="label-icon">💬</span>
+                Permintaan Khusus (opsional)
+              </label>
+              <div class="textarea-wrapper">
+                <textarea id="notes" rows="4"
+                  placeholder="Contoh: Butuh antar jemput / Sewa untuk acara kantor / Dll"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms & Conditions -->
+          <div class="terms-section">
+            <div class="terms-header">
+              <span class="terms-icon">⚠️</span>
+              <h4>Ketentuan Sewa</h4>
+            </div>
+            <ul class="terms-list">
+              <li><span class="check-icon">✓</span> Deposit akan dikembalikan setelah alat kembali dalam kondisi baik
+              </li>
+              <li><span class="check-icon">✓</span> Keterlambatan pengembalian dikenakan biaya 50% dari harga sewa per
+                hari</li>
+              <li><span class="check-icon">✓</span> Alat yang rusak/hilang akan dikenakan biaya penggantian</li>
+              <li><span class="check-icon">✓</span> Penyewa wajib menunjukkan KTP/SIM saat pengambilan</li>
+            </ul>
+            <div class="terms-agreement">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" id="agreeTerms" required>
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Saya menyetujui syarat dan ketentuan yang berlaku</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="form-actions">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span class="btn-icon">🚀</span>
+              <span class="btn-text">Kirim Pesanan</span>
+            </button>
+            <button type="button" class="btn-cancel" onclick="hideCheckoutForm()">
+              <span class="btn-icon">❌</span>
+              <span class="btn-text">Batal</span>
+            </button>
+          </div>
+        </form>
+
+        <div id="message"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-overlay" onclick="closeSuccessModal()"></div>
+    <div class="modal-wrapper">
+      <div class="modal-content success-modal">
+        <button class="modal-close" onclick="closeSuccessModal()" aria-label="Close">&times;</button>
+        <div class="success-icon">✅</div>
+        <h2>Pesanan Berhasil!</h2>
+        <div class="order-details">
+          <p><strong>Nomor Pesanan:</strong></p>
+          <p class="order-number" id="modalOrderNumber">-</p>
+          <p class="order-message">Terima kasih! Pesanan Anda telah diterima.</p>
+          <p class="order-info">Klik tombol di bawah untuk melanjutkan konfirmasi via WhatsApp.</p>
+        </div>
+        <div class="modal-actions" id="modalActions">
+          <button class="btn-primary" onclick="closeSuccessModal()">OK, Mengerti</button>
+          <a href="/" class="btn-secondary">Kembali ke Beranda</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Basecamp Gear - Rental Alat Outdoor Terpercaya</p>
+      <p>📍 Dusun Jambu, Desa Tamansari, Kecamatan Licin | 📱 083 131 251 615 | 📷 @basecampgear.id</p>
+    </div>
+  </footer>
+
+  <script src="/js/order.js"></script>
+</body>
+
+</html>
