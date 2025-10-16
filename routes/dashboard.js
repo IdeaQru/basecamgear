@@ -73,7 +73,7 @@ router.post('/api/orders/create', isAuthenticated, async (req, res) => {
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      calculatedTotalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+      calculatedTotalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
       if (calculatedTotalDays < 1) calculatedTotalDays = 1;
     }
     

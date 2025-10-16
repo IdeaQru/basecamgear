@@ -2,94 +2,298 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Basecamp Gear - Rental Alat Outdoor & Camping</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basecamp Gear - Rental Alat Outdoor & Camping Banyuwangi</title>
+  <meta name="description" content="Sewa peralatan camping, hiking, dan climbing di Banyuwangi. Lokasi strategis menuju Gunung Ijen & Ranti. Harga terjangkau, kualitas terjamin.">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/slider.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
   <!-- Navbar -->
   <nav class="navbar">
     <div class="container">
       <div class="logo-container fade-in">
-
         <img src="/images/logo.png" alt="Basecamp Gear Logo" class="logo-img">
         <h1 class="logo-text">Basecamp Gear</h1>
       </div>
       <ul class="nav-links fade-in">
-        <li><a href="/">Beranda</a></li>
-        <li><a href="/order">Sewa Sekarang</a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a href="#home"><i class="fas fa-home"></i> Beranda</a></li>
+        <li><a href="#lokasi"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+        <li><a href="#pricelist"><i class="fas fa-tags"></i> Harga</a></li>
+        <li><a href="/order" class="btn-nav"><i class="fas fa-shopping-cart"></i> Sewa</a></li>
+        <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
       </ul>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="container">
-      <h2 class="hero-title">Sewa Alat Outdoor untuk Petualangan Anda</h2>
-      <p class="hero-subtitle">Rental perlengkapan camping, hiking, dan climbing berkualitas dengan harga terjangkau.</p>
-      <a href="/order" class="cta pulse">Mulai Sewa Sekarang</a>
+  <!-- Hero Section with Background -->
+  <header class="hero hero-new" id="home">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-badge slide-up">
+        <i class="fas fa-mountain"></i> Pintu Gerbang Gunung Ijen & Ranti
+      </div>
+      <h2 class="hero-title zoom-in">Petualangan Dimulai dari Sini</h2>
+      <p class="hero-subtitle fade-in">Rental perlengkapan camping, hiking, dan climbing berkualitas di Banyuwangi.<br>Lokasi strategis untuk pendakian Gunung Ijen & Ranti.</p>
+      <div class="hero-buttons fade-in">
+        <a href="/order" class="cta cta-primary pulse">
+          <i class="fas fa-backpack"></i> Sewa Sekarang
+        </a>
+        <a href="#lokasi" class="cta cta-secondary">
+          <i class="fas fa-map-marked-alt"></i> Lihat Lokasi
+        </a>
+      </div>
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <i class="fas fa-users"></i>
+          <div>
+            <strong>500+</strong>
+            <span>Pelanggan</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-box"></i>
+          <div>
+            <strong>50+</strong>
+            <span>Alat Tersedia</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-star"></i>
+          <div>
+            <strong>5/5</strong>
+            <span>Rating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
     </div>
   </header>
+
+  <!-- Lokasi & Destinasi Section -->
+  <section class="destinations" id="lokasi">
+    <div class="container">
+      <div class="section-header slide-up">
+        <span class="section-badge">
+          <i class="fas fa-mountain"></i> Destinasi
+        </span>
+        <h3 class="section-title">Lokasi Strategis untuk Petualangan Anda</h3>
+        <p class="section-subtitle">Basecamp Gear berlokasi di jalur menuju Gunung Ijen & Gunung Ranti, dua destinasi pendakian terfavorit di Banyuwangi</p>
+      </div>
+
+      <div class="destinations-grid">
+        <!-- Gunung Ijen -->
+        <div class="destination-card slide-up" style="animation-delay: 0.1s;">
+          <div class="destination-image">
+            <img src="/images/ijen.png" alt="Gunung Ijen Blue Fire" loading="lazy">
+            <div class="destination-badge">
+              <i class="fas fa-fire"></i> Blue Fire
+            </div>
+          </div>
+          <div class="destination-content">
+            <h4><i class="fas fa-mountain"></i> Gunung Ijen</h4>
+            <p class="destination-location">
+              <i class="fas fa-map-marker-alt"></i> Banyuwangi - Bondowoso
+            </p>
+            <p class="destination-desc">Kawah dengan api biru langka dan pemandangan sunrise memukau. Ketinggian 2.386 mdpl.</p>
+            <div class="destination-features">
+              <span><i class="fas fa-clock"></i> 3-4 jam pendakian</span>
+              <span><i class="fas fa-chart-line"></i> Sedang</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gunung Ranti -->
+        <div class="destination-card slide-up" style="animation-delay: 0.2s;">
+          <div class="destination-image">
+            <img src="/images/ranti.png" alt="Gunung Ranti" loading="lazy">
+            <div class="destination-badge badge-hard">
+              <i class="fas fa-flag-checkered"></i> Challenging
+            </div>
+          </div>
+          <div class="destination-content">
+            <h4><i class="fas fa-mountain"></i> Gunung Ranti</h4>
+            <p class="destination-location">
+              <i class="fas fa-map-marker-alt"></i> Banyuwangi
+            </p>
+            <p class="destination-desc">Gunung dengan pemandangan indah dan jalur pendakian menantang. Ketinggian 3.336 mdpl.</p>
+            <div class="destination-features">
+              <span><i class="fas fa-clock"></i> 4-7 jam pendakian</span>
+              <span><i class="fas fa-chart-line"></i> Sulit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lokasi Basecamp -->
+        <div class="destination-card basecamp-card slide-up" style="animation-delay: 0.3s;">
+          <div class="destination-image">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3948.8537!2d114.2247!3d-8.2127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd157b3b9e5e5e5%3A0x0!2zOMKwMTInNDUuNyJTIDExNMKwMTMnMjguOSJF!5e0!3m2!1sen!2sid!4v1234567890" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <div class="destination-content">
+            <h4><i class="fas fa-home"></i> Basecamp Gear</h4>
+            <p class="destination-location">
+              <i class="fas fa-map-marker-alt"></i> Ds. Tamansari, Kec. Licin, Banyuwangi
+            </p>
+            <p class="destination-desc">Lokasi strategis di jalur menuju Gunung Ijen & Ranti. Mudah diakses dari pusat Banyuwangi.</p>
+            <div class="destination-actions">
+              <a href="https://maps.app.goo.gl/XJQYvR8fJ98BTqPy5" target="_blank" class="btn-location">
+                <i class="fas fa-directions"></i> Buka di Maps
+              </a>
+              <a href="https://wa.me/6283131251615" target="_blank" class="btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Hubungi Kami
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Distance Info -->
+      <div class="distance-info zoom-in">
+        <h4><i class="fas fa-route"></i> Jarak dari Basecamp Gear</h4>
+        <div class="distance-grid">
+          <div class="distance-item">
+            <i class="fas fa-mountain"></i>
+            <span>Ke Pos Paltuding (Ijen)</span>
+            <strong>25 km / 45 menit</strong>
+          </div>
+          <div class="distance-item">
+            <i class="fas fa-mountain"></i>
+            <span>Ke Basecamp Ranti</span>
+            <strong>30 km / 50 menit</strong>
+          </div>
+          <div class="distance-item">
+            <i class="fas fa-city"></i>
+            <span>Dari Kota Banyuwangi</span>
+            <strong>40 km / 1 jam</strong>
+          </div>
+          <div class="distance-item">
+            <i class="fas fa-plane"></i>
+            <span>Dari Bandara Blimbingsari</span>
+            <strong>55 km / 1.5 jam</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Intro Section -->
   <section class="intro">
     <div class="container">
-      <h3 class="section-title slide-up">Mengapa Sewa di Basecamp Gear?</h3>
-      <p class="slide-up">Tidak perlu beli alat mahal untuk sekali pakai. Sewa saja di Basecamp Gear dan nikmati petualangan outdoor tanpa beban!</p>
+      <div class="intro-content">
+        <div class="intro-text slide-up">
+          <span class="section-badge">
+            <i class="fas fa-info-circle"></i> Tentang Kami
+          </span>
+          <h3 class="section-title">Mengapa Sewa di Basecamp Gear?</h3>
+          <p>Tidak perlu beli alat mahal untuk sekali pakai. Sewa saja di Basecamp Gear dan nikmati petualangan outdoor tanpa beban!</p>
+          <ul class="intro-list">
+            <li><i class="fas fa-check-circle"></i> Peralatan lengkap dan terawat</li>
+            <li><i class="fas fa-check-circle"></i> Harga sewa terjangkau</li>
+            <li><i class="fas fa-check-circle"></i> Lokasi strategis ke Ijen & Ranti</li>
+            <li><i class="fas fa-check-circle"></i> Layanan ramah dan profesional</li>
+          </ul>
+          <a href="/order" class="cta cta-primary">
+            <i class="fas fa-shopping-cart"></i> Mulai Sewa
+          </a>
+        </div>
+        <div class="intro-image zoom-in">
+          <img src="/images/camping.png" alt="Camping Illustration">
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Features Section -->
   <section class="features">
     <div class="container">
-      <h3 class="section-title slide-up">Keunggulan Kami</h3>
+      <div class="section-header slide-up">
+        <span class="section-badge">
+          <i class="fas fa-star"></i> Keunggulan
+        </span>
+        <h3 class="section-title">Keunggulan Kami</h3>
+      </div>
       <div class="features-grid">
         <div class="feature-card slide-up" style="animation-delay: 0.1s;">
-          <div class="feature-icon">🏕️</div>
+          <div class="feature-icon">
+            <i class="fas fa-boxes"></i>
+          </div>
           <h3>Peralatan Lengkap</h3>
-          <p>Tenda, sleeping bag, carrier, kompor portable, dan perlengkapan camping lainnya.</p>
+          <p>Tenda, sleeping bag, carrier, kompor portable, dan perlengkapan camping lainnya siap untuk petualangan Anda.</p>
         </div>
         <div class="feature-card slide-up" style="animation-delay: 0.2s;">
-          <div class="feature-icon">✅</div>
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
           <h3>Kualitas Terjamin</h3>
-          <p>Semua peralatan terawat dengan baik dan siap pakai untuk kondisi outdoor ekstrem.</p>
+          <p>Semua peralatan terawat dengan baik dan siap pakai untuk kondisi outdoor ekstrem di gunung.</p>
         </div>
         <div class="feature-card slide-up" style="animation-delay: 0.3s;">
-          <div class="feature-icon">💰</div>
+          <div class="feature-icon">
+            <i class="fas fa-wallet"></i>
+          </div>
           <h3>Harga Terjangkau</h3>
-          <p>Sistem sewa harian, mingguan, atau bulanan dengan harga yang ramah di kantong.</p>
+          <p>Sistem sewa harian dengan harga yang ramah di kantong. Hemat untuk petualangan maksimal!</p>
+        </div>
+        <div class="feature-card slide-up" style="animation-delay: 0.4s;">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>Layanan 24/7</h3>
+          <p>Customer service siap membantu Anda kapan saja melalui WhatsApp untuk kemudahan sewa.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Price List Slider -->
-  <section class="pricelist-section">
+  <section class="pricelist-section" id="pricelist">
     <div class="container">
-      <h3 class="section-title slide-up">📋 Daftar Harga Sewa</h3>
-      <p class="subtitle slide-up">Geser untuk melihat katalog lengkap peralatan kami</p>
+      <div class="section-header slide-up">
+        <span class="section-badge">
+          <i class="fas fa-tags"></i> Harga
+        </span>
+        <h3 class="section-title">Daftar Harga Sewa</h3>
+        <p class="section-subtitle">Geser untuk melihat katalog lengkap peralatan kami</p>
+      </div>
       
       <div class="slider-container zoom-in">
-        <button class="slider-btn prev" onclick="changeSlide(-1)" aria-label="Previous">❮</button>
+        <button class="slider-btn prev" onclick="changeSlide(-1)" aria-label="Previous">
+          <i class="fas fa-chevron-left"></i>
+        </button>
         
         <div class="slider">
           <div class="slide active">
-            <img src="/images/pricelist/foto1.png" alt="Price List 1 - Aksesoris Camping">
+            <img src="/images/pricelist/foto1.png" alt="Price List 1 - Aksesoris Camping" loading="lazy">
           </div>
           <div class="slide">
-            <img src="/images/pricelist/foto2.png" alt="Price List 2 - Peralatan Gunung">
+            <img src="/images/pricelist/foto2.png" alt="Price List 2 - Peralatan Gunung" loading="lazy">
           </div>
           <div class="slide">
-            <img src="/images/pricelist/foto3.png" alt="Price List 3 - Tenda & Camping">
+            <img src="/images/pricelist/foto3.png" alt="Price List 3 - Tenda & Camping" loading="lazy">
           </div>
           <div class="slide">
-            <img src="/images/pricelist/foto4.png" alt="Price List 4 - Perlengkapan Lainnya">
+            <img src="/images/pricelist/foto4.png" alt="Price List 4 - Perlengkapan Lainnya" loading="lazy">
           </div>
         </div>
         
-        <button class="slider-btn next" onclick="changeSlide(1)" aria-label="Next">❯</button>
+        <button class="slider-btn next" onclick="changeSlide(1)" aria-label="Next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       
       <!-- Slider Dots -->
@@ -100,8 +304,10 @@
         <span class="dot" onclick="currentSlide(4)" aria-label="Slide 4"></span>
       </div>
       
-      <div class="cta-center">
-        <a href="/order" class="cta pulse">Sewa Sekarang</a>
+      <div class="cta-center fade-in">
+        <a href="/order" class="cta cta-primary pulse">
+          <i class="fas fa-shopping-cart"></i> Sewa Sekarang
+        </a>
       </div>
     </div>
   </section>
@@ -109,19 +315,40 @@
   <!-- How It Works -->
   <section class="how-it-works">
     <div class="container">
-      <h3 class="section-title slide-up">Cara Sewa di Basecamp Gear</h3>
+      <div class="section-header slide-up">
+        <span class="section-badge">
+          <i class="fas fa-question-circle"></i> Cara Sewa
+        </span>
+        <h3 class="section-title">Cara Sewa di Basecamp Gear</h3>
+        <p class="section-subtitle">Mudah dan cepat, hanya 3 langkah!</p>
+      </div>
       <div class="steps">
         <div class="step slide-up" style="animation-delay: 0.1s;">
+          <div class="step-icon">
+            <i class="fas fa-search"></i>
+          </div>
           <span class="step-number">1</span>
           <h4>Pilih Alat</h4>
-          <p>Pilih peralatan yang ingin disewa melalui katalog kami.</p>
+          <p>Pilih peralatan yang ingin disewa melalui katalog kami atau hubungi via WhatsApp.</p>
+        </div>
+        <div class="step-arrow">
+          <i class="fas fa-arrow-right"></i>
         </div>
         <div class="step slide-up" style="animation-delay: 0.2s;">
+          <div class="step-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
           <span class="step-number">2</span>
           <h4>Isi Data & Tanggal</h4>
-          <p>Tentukan tanggal sewa dan isi data diri untuk konfirmasi.</p>
+          <p>Tentukan tanggal sewa dan isi data diri untuk konfirmasi booking.</p>
+        </div>
+        <div class="step-arrow">
+          <i class="fas fa-arrow-right"></i>
         </div>
         <div class="step slide-up" style="animation-delay: 0.3s;">
+          <div class="step-icon">
+            <i class="fas fa-hiking"></i>
+          </div>
           <span class="step-number">3</span>
           <h4>Ambil & Nikmati</h4>
           <p>Ambil alat di lokasi kami dan nikmati petualangan outdoor Anda!</p>
@@ -130,27 +357,116 @@
     </div>
   </section>
 
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content zoom-in">
+        <div class="cta-icon">
+          <i class="fas fa-mountain"></i>
+        </div>
+        <h3>Siap Memulai Petualangan?</h3>
+        <p>Sewa peralatan camping berkualitas dan jelajahi Gunung Ijen & Ranti bersama Basecamp Gear!</p>
+        <div class="cta-buttons">
+          <a href="/order" class="cta cta-primary pulse">
+            <i class="fas fa-backpack"></i> Sewa Sekarang
+          </a>
+          <a href="https://wa.me/6283131251615" target="_blank" class="cta cta-whatsapp">
+            <i class="fab fa-whatsapp"></i> Chat WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="/images/logo.png" alt="Basecamp Gear Logo" class="footer-logo-img">
-          <h3>Basecamp Gear</h3>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img src="/images/logo.png" alt="Basecamp Gear Logo" class="footer-logo-img">
+            <h3>Basecamp Gear</h3>
+          </div>
+          <p>Rental alat outdoor terpercaya di Banyuwangi. Lokasi strategis untuk pendakian Gunung Ijen & Ranti.</p>
+          <div class="social-links">
+            <a href="https://instagram.com/basecampgear.id" target="_blank" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/6283131251615" target="_blank" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://facebook.com/basecampgear" target="_blank" aria-label="Facebook">
+              <i class="fab fa-facebook"></i>
+            </a>
+          </div>
         </div>
-        <div class="footer-info">
-          <p><strong>📍 Alamat:</strong><br>Dusun Jambu, Desa Tamansari, Kecamatan Licin</p>
-          <p><strong>📱 Telepon:</strong><br>083 131 251 615</p>
-          <p><strong>📷 Instagram:</strong><br>@basecampgear.id</p>
+        
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#home"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+            <li><a href="#lokasi"><i class="fas fa-chevron-right"></i> Lokasi</a></li>
+            <li><a href="#pricelist"><i class="fas fa-chevron-right"></i> Harga</a></li>
+            <li><a href="/order"><i class="fas fa-chevron-right"></i> Sewa Sekarang</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul class="contact-list">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Dusun Jambu, Desa Tamansari<br>Kecamatan Licin, Banyuwangi</span>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <span>083 131 251 615</span>
+            </li>
+            <li>
+              <i class="fab fa-instagram"></i>
+              <span>@basecampgear.id</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Jam Operasional</h4>
+          <ul class="hours-list">
+            <li>
+              <span>Senin - Jumat</span>
+              <strong>07:00 - 21:00</strong>
+            </li>
+            <li>
+              <span>Sabtu - Minggu</span>
+              <strong>08:00 - 22:00</strong>
+            </li>
+            <li class="whatsapp-24">
+              <i class="fab fa-whatsapp"></i>
+              <span>WhatsApp 24/7</span>
+            </li>
+          </ul>
         </div>
       </div>
+      
       <div class="footer-bottom">
-        <p>&copy; 2025 Basecamp Gear - Rental Alat Outdoor Terpercaya</p>
+        <p>&copy; 2025 Basecamp Gear - Rental Alat Outdoor Terpercaya di Banyuwangi</p>
+        <p class="footer-credit">Developed with <i class="fas fa-heart"></i> by Basecamp Gear Team</p>
       </div>
     </div>
   </footer>
 
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/6283131251615" class="whatsapp-float" target="_blank" aria-label="Chat WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to Top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script src="/js/slider.js"></script>
   <script src="/js/animations.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>

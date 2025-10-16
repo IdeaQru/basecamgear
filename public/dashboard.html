@@ -1,382 +1,657 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard Admin Basecamp Gear - Kelola pesanan dan peralatan rental">
   <title>Dashboard Admin - Basecamp Gear</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/dashboard.css">
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
+
 <body>
-<nav class="navbar">
-  <div class="container">
-    <div class="logo-container">
-      <img src="/images/logo.png" alt="Basecamp Gear Logo" class="logo-img">
-      <h1 class="logo-text">Basecamp Gear - Dashboard</h1>
-    </div>
-    <ul>
-      <li><a href="/dashboard">Dashboard</a></li>
-      <li><a href="/" target="_blank">Lihat Website</a></li>
-      <li><span id="userInfo">Loading...</span></li>
-      <li><a href="/login/logout" class="btn-logout">Logout</a></li>
-    </ul>
-  </div>
-</nav>
 
-
-  <div class="dashboard-container">
+  <!-- Enhanced Navbar -->
+  <nav class="navbar-dashboard">
     <div class="container">
-      <div class="dashboard-header">
-        <h2>Manajemen Basecamp Gear</h2>
-        <p class="subtitle">Kelola pesanan dan peralatan rental</p>
+      <div class="logo-container">
+        <div class="logo-wrapper">
+          <img src="/images/logo.png" alt="Basecamp Gear Logo" class="logo-img">
+        </div>
+        <div class="logo-text-wrapper">
+          <h1 class="logo-text">Basecamp Gear</h1>
+          <span class="logo-subtitle">Admin Dashboard</span>
+        </div>
       </div>
 
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('orders')">📋 Pesanan</button>
-        <button class="tab-btn" onclick="showTab('equipment')">⚙️ Kelola Alat</button>
-        <button class="tab-btn" onclick="showTab('reports')">📊 Laporan</button>
-      </div>
+      <ul class="nav-links">
+        <li><a href="/dashboard" class="active"><span class="nav-icon">📊</span> Dashboard</a></li>
+        <li><a href="/" target="_blank"><span class="nav-icon">🌐</span> Website</a></li>
+        <li class="user-menu">
+          <span class="user-info" id="userInfo">
+            <span class="user-avatar">👤</span>
+            <span class="user-name">Loading...</span>
+          </span>
+        </li>
+        <li><a href="/login/logout" class="btn-logout"><span class="nav-icon">🚪</span> Logout</a></li>
+      </ul>
 
-      <!-- Tab: Orders -->
-      <div id="ordersTab" class="tab-content active">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <h3 id="totalOrders">0</h3>
-            <p>Total Pesanan</p>
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-wrapper">
+    <div class="dashboard-container">
+      <div class="container">
+
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div class="header-content">
+            <h2 class="header-title">
+              <span class="title-icon">🏕️</span>
+              Manajemen Basecamp Gear
+            </h2>
+            <p class="header-subtitle">Kelola pesanan dan peralatan rental dengan mudah</p>
           </div>
-          <div class="stat-card">
-            <h3 id="pendingOrders">0</h3>
-            <p>Menunggu Konfirmasi</p>
-          </div>
-          <div class="stat-card">
-            <h3 id="confirmedOrders">0</h3>
-            <p>Dikonfirmasi</p>
-          </div>
-          <div class="stat-card">
-            <h3 id="completedOrders">0</h3>
-            <p>Selesai</p>
+          <div class="header-stats">
+            <div class="quick-stat">
+              <span class="quick-stat-icon">📅</span>
+              <div class="quick-stat-info">
+                <span class="quick-stat-label">Hari Ini</span>
+                <span class="quick-stat-value" id="todayDate">-</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Form Tambah Pesanan (Multiple Items) -->
-        <div id="orderFormContainer" class="form-container-inline" style="display:none;">
-          <h3>📝 Tambah Pesanan Baru</h3>
-          <form id="orderForm">
-            <input type="hidden" id="orderId">
-            
-            <!-- Customer Info -->
-            <div class="form-section">
-              <h4>👤 Data Penyewa</h4>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="orderName">Nama Lengkap *</label>
-                  <input type="text" id="orderName" required>
-                </div>
-                <div class="form-group">
-                  <label for="orderPhone">Nomor Telepon *</label>
-                  <input type="tel" id="orderPhone" required>
-                </div>
+        <!-- Enhanced Tabs -->
+        <div class="tabs-container">
+          <button class="tab-btn active" onclick="showTab('orders')" data-tab="orders">
+            <span class="tab-icon">📋</span>
+            <span class="tab-text">Pesanan</span>
+            <span class="tab-badge" id="ordersBadge">0</span>
+          </button>
+          <button class="tab-btn" onclick="showTab('equipment')" data-tab="equipment">
+            <span class="tab-icon">⚙️</span>
+            <span class="tab-text">Kelola Alat</span>
+          </button>
+          <button class="tab-btn" onclick="showTab('reports')" data-tab="reports">
+            <span class="tab-icon">📊</span>
+            <span class="tab-text">Laporan</span>
+          </button>
+        </div>
+
+        <!-- Tab: Orders -->
+        <div id="ordersTab" class="tab-content active">
+
+          <!-- Enhanced Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card stat-card-primary">
+              <div class="stat-icon">📦</div>
+              <div class="stat-info">
+                <h3 class="stat-number" id="totalOrders">0</h3>
+                <p class="stat-label">Total Pesanan</p>
               </div>
-              <div class="form-group">
-                <label for="orderEmail">Email</label>
-                <input type="email" id="orderEmail">
+              <div class="stat-trend">
+                <span class="trend-up">↗ 12%</span>
               </div>
             </div>
 
-            <!-- Rental Period -->
-            <div class="form-section">
-              <h4>📅 Periode Sewa</h4>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="orderStartDate">Tanggal Ambil *</label>
-                  <input type="date" id="orderStartDate" required onchange="calculateOrderTotal()">
-                </div>
-                <div class="form-group">
-                  <label for="orderEndDate">Tanggal Kembali *</label>
-                  <input type="date" id="orderEndDate" required onchange="calculateOrderTotal()">
-                </div>
+            <div class="stat-card stat-card-warning">
+              <div class="stat-icon">⏳</div>
+              <div class="stat-info">
+                <h3 class="stat-number" id="pendingOrders">0</h3>
+                <p class="stat-label">Menunggu Konfirmasi</p>
               </div>
-              <div class="rental-summary">
-                <span>Durasi Sewa: <strong id="orderDuration">0 hari</strong></span>
+              <div class="stat-trend">
+                <span class="trend-new">NEW</span>
               </div>
             </div>
 
-            <!-- Items Selection -->
-            <div class="form-section">
-              <h4>🛒 Pilih Alat</h4>
-              <div class="item-selector">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="selectEquipment">Pilih Peralatan</label>
-                    <select id="selectEquipment">
-                      <option value="">-- Pilih Alat --</option>
+            <div class="stat-card stat-card-info">
+              <div class="stat-icon">✅</div>
+              <div class="stat-info">
+                <h3 class="stat-number" id="confirmedOrders">0</h3>
+                <p class="stat-label">Dikonfirmasi</p>
+              </div>
+              <div class="stat-trend">
+                <span class="trend-down">↘ 5%</span>
+              </div>
+            </div>
+
+            <div class="stat-card stat-card-success">
+              <div class="stat-icon">🎉</div>
+              <div class="stat-info">
+                <h3 class="stat-number" id="completedOrders">0</h3>
+                <p class="stat-label">Selesai</p>
+              </div>
+              <div class="stat-trend">
+                <span class="trend-up">↗ 8%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Form Container -->
+          <div id="orderFormContainer" class="form-container-modern" style="display:none;">
+            <div class="form-card-header">
+              <div class="form-header-left">
+                <span class="form-icon">📝</span>
+                <h3>Tambah Pesanan Baru</h3>
+              </div>
+              <button class="btn-close-form" onclick="hideOrderForm()">✕</button>
+            </div>
+
+            <form id="orderForm" class="form-modern">
+              <input type="hidden" id="orderId">
+
+              <!-- Customer Info Section -->
+              <div class="form-section-modern">
+                <div class="section-header-modern">
+                  <span class="section-icon">👤</span>
+                  <h4>Data Penyewa</h4>
+                </div>
+                <div class="form-grid">
+                  <div class="form-group-modern">
+                    <label for="orderName">
+                      <span class="label-required">*</span>
+                      Nama Lengkap
+                    </label>
+                    <input type="text" id="orderName" placeholder="Masukkan nama lengkap" required>
+                  </div>
+                  <div class="form-group-modern">
+                    <label for="orderPhone">
+                      <span class="label-required">*</span>
+                      Nomor Telepon
+                    </label>
+                    <input type="tel" id="orderPhone" placeholder="08xxxxxxxxxx" required>
+                  </div>
+                  <div class="form-group-modern full-width">
+                    <label for="orderEmail">Email</label>
+                    <input type="email" id="orderEmail" placeholder="email@example.com">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rental Period Section -->
+              <div class="form-section-modern">
+                <div class="section-header-modern">
+                  <span class="section-icon">📅</span>
+                  <h4>Periode Sewa</h4>
+                </div>
+                <div class="form-grid">
+                  <div class="form-group-modern">
+                    <label for="orderStartDate">
+                      <span class="label-required">*</span>
+                      Tanggal Ambil
+                    </label>
+                    <input type="date" id="orderStartDate" required onchange="calculateOrderTotal()">
+                  </div>
+                  <div class="form-group-modern">
+                    <label for="orderEndDate">
+                      <span class="label-required">*</span>
+                      Tanggal Kembali
+                    </label>
+                    <input type="date" id="orderEndDate" required onchange="calculateOrderTotal()">
+                  </div>
+                </div>
+                <div class="duration-display">
+                  <span class="duration-icon">⏱️</span>
+                  <span class="duration-text">Durasi Sewa: <strong id="orderDuration">0 hari</strong></span>
+                </div>
+              </div>
+
+              <!-- Items Selection Section -->
+              <div class="form-section-modern">
+                <div class="section-header-modern">
+                  <span class="section-icon">🛒</span>
+                  <h4>Pilih Peralatan</h4>
+                </div>
+                <div class="item-selector-modern">
+                  <div class="form-grid">
+                    <div class="form-group-modern">
+                      <label for="selectEquipment">Peralatan</label>
+                      <select id="selectEquipment">
+                        <option value="">-- Pilih Alat --</option>
+                      </select>
+                    </div>
+                    <div class="form-group-modern">
+                      <label for="selectQuantity">Jumlah</label>
+                      <input type="number" id="selectQuantity" min="1" value="1">
+                    </div>
+                    <div class="form-group-modern">
+                      <label>&nbsp;</label>
+                      <button type="button" class="btn-add-item-modern" onclick="addOrderItem()">
+                        <span class="btn-icon">➕</span>
+                        Tambah
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Selected Items List -->
+                <div id="selectedItemsList" class="selected-items-modern">
+                  <div class="empty-items">
+                    <span class="empty-icon">📦</span>
+                    <p>Belum ada alat dipilih</p>
+                  </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary-modern" id="orderSummaryBox" style="display:none;">
+                  <div class="summary-header">
+                    <span class="summary-icon">💰</span>
+                    <h5>Ringkasan Pesanan</h5>
+                  </div>
+                  <div class="summary-content">
+                    <div class="summary-row">
+                      <span>Total Item:</span>
+                      <strong id="orderTotalItems">0</strong>
+                    </div>
+                    <div class="summary-row summary-total">
+                      <span>Total Harga:</span>
+                      <strong id="orderTotalPrice">Rp 0</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Info Section -->
+              <div class="form-section-modern">
+                <div class="section-header-modern">
+                  <span class="section-icon">📝</span>
+                  <h4>Informasi Tambahan</h4>
+                </div>
+                <div class="form-grid">
+                  <div class="form-group-modern">
+                    <label for="orderStatus">Status Pesanan</label>
+                    <select id="orderStatus">
+                      <option value="Menunggu Konfirmasi">⏳ Menunggu Konfirmasi</option>
+                      <option value="Dikonfirmasi">✅ Dikonfirmasi</option>
+                      <option value="Sedang Disewa">🚚 Sedang Disewa</option>
+                      <option value="Selesai">🎉 Selesai</option>
+                      <option value="Dibatalkan">❌ Dibatalkan</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label for="selectQuantity">Jumlah</label>
-                    <input type="number" id="selectQuantity" min="1" value="1">
-                  </div>
-                  <div class="form-group">
-                    <label>&nbsp;</label>
-                    <button type="button" class="btn-add-item" onclick="addOrderItem()">➕ Tambah</button>
+                  <div class="form-group-modern full-width">
+                    <label for="orderNotes">Catatan</label>
+                    <textarea id="orderNotes" rows="3" placeholder="Catatan tambahan..."></textarea>
                   </div>
                 </div>
               </div>
 
-              <!-- Selected Items List -->
-              <div id="selectedItemsList" class="selected-items-list">
-                <p class="text-center">Belum ada alat dipilih</p>
-              </div>
-
-              <!-- Order Summary -->
-              <div class="order-summary-box" id="orderSummaryBox" style="display:none;">
-                <div class="summary-row">
-                  <span>Total Item:</span>
-                  <strong id="orderTotalItems">0</strong>
-                </div>
-                <div class="summary-row total">
-                  <span>Total Harga:</span>
-                  <strong id="orderTotalPrice">Rp 0</strong>
-                </div>
-              </div>
-            </div>
-
-            <!-- Additional Info -->
-            <div class="form-section">
-              <h4>📝 Informasi Tambahan</h4>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="orderStatus">Status</label>
-                  <select id="orderStatus">
-                    <option value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
-                    <option value="Dikonfirmasi">Dikonfirmasi</option>
-                    <option value="Sedang Disewa">Sedang Disewa</option>
-                    <option value="Selesai">Selesai</option>
-                    <option value="Dibatalkan">Dibatalkan</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="orderNotes">Catatan</label>
-                <textarea id="orderNotes" rows="3" placeholder="Catatan tambahan..."></textarea>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">💾 Simpan Pesanan</button>
-              <button type="button" class="btn-cancel" onclick="hideOrderForm()">❌ Batal</button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Orders Table -->
-      <!-- Orders Table -->
-<div class="orders-section">
-  <div class="orders-header">
-    <h3>Daftar Pesanan</h3>
-    <div class="header-actions">
-      <button class="btn-add" onclick="showAddOrderForm()">➕ Tambah Pesanan</button>
-      <button class="btn-refresh" onclick="loadOrders()">🔄 Refresh</button>
-    </div>
-  </div>
-  
-  <!-- Filter Tabs -->
-  <div class="filter-tabs">
-    <button class="filter-tab active" onclick="filterOrders('all')">📋 Semua</button>
-    <button class="filter-tab" onclick="filterOrders('today')">📅 Hari Ini</button>
-    <button class="filter-tab" onclick="filterOrders('pickup')">📦 Ambil Hari Ini</button>
-    <button class="filter-tab" onclick="filterOrders('return')">🔙 Kembali Hari Ini</button>
-  </div>
-  
-  <div class="table-responsive">
-    <table class="orders-table">
-      <thead>
-        <tr>
-          <th>No. Pesanan</th>
-          <th>Penyewa</th>
-          <th>Kontak</th>
-          <th>Peralatan</th>
-          <th>Total</th>
-          <th>Periode Sewa</th>
-          <th>Status</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="ordersTableBody">
-        <tr>
-          <td colspan="8" class="text-center">Loading data...</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-      </div>
-
-      <!-- Tab: Equipment (Tetap Sama) -->
-      <div id="equipmentTab" class="tab-content">
-        <div class="equipment-section">
-          <div class="equipment-header">
-            <h3>Manajemen Alat</h3>
-            <button class="btn-add" onclick="showAddEquipmentForm()">➕ Tambah Alat</button>
-          </div>
-
-          <div id="equipmentFormContainer" class="form-container-inline" style="display:none;">
-            <h3>⚙️ Form Alat</h3>
-            <form id="equipmentForm" enctype="multipart/form-data">
-              <input type="hidden" id="equipmentId">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="equipmentName">Nama Alat *</label>
-                  <input type="text" id="equipmentName" required>
-                </div>
-                <div class="form-group">
-                  <label for="equipmentPrice">Harga Sewa (per hari) *</label>
-                  <input type="number" id="equipmentPrice" min="0" required>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="equipmentCategory">Kategori</label>
-                  <select id="equipmentCategory">
-                    <option value="Tenda">Tenda</option>
-                    <option value="Carrier">Carrier</option>
-                    <option value="Sleeping Bag">Sleeping Bag</option>
-                    <option value="Kompor">Kompor</option>
-                    <option value="Aksesoris">Aksesoris</option>
-                    <option value="Lainnya">Lainnya</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="equipmentStock">Stok</label>
-                  <input type="number" id="equipmentStock" min="0" value="1">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="equipmentDescription">Deskripsi</label>
-                <textarea id="equipmentDescription" rows="3"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="equipmentImage">Gambar Alat</label>
-                <input type="file" id="equipmentImage" accept="image/*">
-                <small>Format: JPG, PNG, GIF (Max 5MB)</small>
-              </div>
-              <div class="form-actions">
-                <button type="submit" class="btn-primary">💾 Simpan</button>
-                <button type="button" class="btn-cancel" onclick="hideEquipmentForm()">❌ Batal</button>
+              <!-- Form Actions -->
+              <div class="form-actions-modern">
+                <button type="submit" class="btn-submit-modern">
+                  <span class="btn-icon">💾</span>
+                  <span class="btn-text">Simpan Pesanan</span>
+                </button>
+                <button type="button" class="btn-cancel-modern" onclick="hideOrderForm()">
+                  <span class="btn-icon">❌</span>
+                  <span class="btn-text">Batal</span>
+                </button>
               </div>
             </form>
           </div>
 
-          <div class="equipment-grid" id="equipmentGrid">
-            <p class="text-center">Loading...</p>
+          <!-- Orders Section -->
+          <div class="orders-section-modern">
+            <div class="section-header-card">
+              <div class="section-header-left">
+                <h3><span class="section-icon">📋</span> Daftar Pesanan</h3>
+                <p class="section-desc">Kelola semua pesanan rental</p>
+              </div>
+              <div class="section-header-right">
+                <button class="btn-action-modern btn-primary" onclick="showAddOrderForm()">
+                  <span class="btn-icon">➕</span>
+                  <span class="btn-text">Tambah Pesanan</span>
+                </button>
+                <button class="btn-action-modern btn-secondary" onclick="loadOrders()">
+                  <span class="btn-icon">🔄</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs-modern">
+              <button class="filter-tab-modern active" onclick="filterOrders('all')">
+                <span class="filter-icon">📋</span>
+                <span class="filter-text">Semua</span>
+                <span class="filter-count" id="filterAllCount">0</span>
+              </button>
+              <button class="filter-tab-modern" onclick="filterOrders('today')">
+                <span class="filter-icon">📅</span>
+                <span class="filter-text">Hari Ini</span>
+                <span class="filter-count" id="filterTodayCount">0</span>
+              </button>
+              <button class="filter-tab-modern" onclick="filterOrders('pickup')">
+                <span class="filter-icon">📦</span>
+                <span class="filter-text">Ambil Hari Ini</span>
+                <span class="filter-count" id="filterPickupCount">0</span>
+              </button>
+              <button class="filter-tab-modern" onclick="filterOrders('return')">
+                <span class="filter-icon">🔙</span>
+                <span class="filter-text">Kembali Hari Ini</span>
+                <span class="filter-count" id="filterReturnCount">0</span>
+              </button>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-container-modern">
+              <table class="table-modern">
+                <thead>
+                  <tr>
+                    <th>No. Pesanan</th>
+                    <th>Penyewa</th>
+                    <th>Kontak</th>
+                    <th>Peralatan</th>
+                    <th>Total</th>
+                    <th>Periode Sewa</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                  <tr>
+                    <td colspan="8" class="text-center">
+                      <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Memuat data pesanan...</p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Tab: Reports -->
-<div id="reportsTab" class="tab-content">
-  <div class="reports-section">
-    <div class="reports-header">
-      <h3>📊 Laporan Penyewaan</h3>
-      <p class="subtitle">Export data pesanan ke file CSV</p>
-    </div>
+        <!-- Tab: Equipment -->
+        <div id="equipmentTab" class="tab-content">
+          <div class="equipment-section-modern">
+            <div class="section-header-card">
+              <div class="section-header-left">
+                <h3><span class="section-icon">⚙️</span> Manajemen Peralatan</h3>
+                <p class="section-desc">Kelola alat-alat yang tersedia untuk disewa</p>
+              </div>
+              <div class="section-header-right">
+                <button class="btn-action-modern btn-primary" onclick="showAddEquipmentForm()">
+                  <span class="btn-icon">➕</span>
+                  <span class="btn-text">Tambah Alat</span>
+                </button>
+              </div>
+            </div>
 
-    <!-- Report Stats -->
-    <div class="report-stats-grid">
-      <div class="report-stat-card">
-        <div class="stat-icon">📅</div>
-        <h4>Hari Ini</h4>
-        <p class="stat-number" id="reportToday">0</p>
-        <p class="stat-label">Pesanan</p>
-        <button class="btn-export" onclick="exportReport('today')">📥 Export CSV</button>
-      </div>
-      
-      <div class="report-stat-card">
-        <div class="stat-icon">📆</div>
-        <h4>7 Hari Terakhir</h4>
-        <p class="stat-number" id="report7Days">0</p>
-        <p class="stat-label">Pesanan</p>
-        <button class="btn-export" onclick="exportReport('week')">📥 Export CSV</button>
-      </div>
-      
-      <div class="report-stat-card">
-        <div class="stat-icon">📊</div>
-        <h4>30 Hari Terakhir</h4>
-        <p class="stat-number" id="report30Days">0</p>
-        <p class="stat-label">Pesanan</p>
-        <button class="btn-export" onclick="exportReport('month')">📥 Export CSV</button>
-      </div>
-      
-      <div class="report-stat-card">
-        <div class="stat-icon">📈</div>
-        <h4>Semua Data</h4>
-        <p class="stat-number" id="reportAll">0</p>
-        <p class="stat-label">Pesanan</p>
-        <button class="btn-export" onclick="exportReport('all')">📥 Export CSV</button>
-      </div>
-    </div>
+            <!-- Equipment Form - DIPERBAIKI -->
+            <div id="equipmentFormContainer" class="form-container-modern" style="display:none;">
+              <div class="form-card-header">
+                <div class="form-header-left">
+                  <span class="form-icon">⚙️</span>
+                  <h3>Form Peralatan</h3>
+                </div>
+                <button type="button" class="btn-close-form" onclick="hideEquipmentForm()">✕</button>
+              </div>
 
-    <!-- Custom Date Range -->
-    <div class="custom-range-section">
-      <h4>📅 Periode Kustom</h4>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="reportStartDate">Tanggal Mulai</label>
-          <input type="date" id="reportStartDate">
-        </div>
-        <div class="form-group">
-          <label for="reportEndDate">Tanggal Akhir</label>
-          <input type="date" id="reportEndDate">
-        </div>
-        <div class="form-group">
-          <label>&nbsp;</label>
-          <button class="btn-export-custom" onclick="exportCustomRange()">📥 Export Range</button>
-        </div>
-      </div>
-    </div>
+              <form id="equipmentForm" class="form-modern" enctype="multipart/form-data">
+                <input type="hidden" id="equipmentId">
 
-    <!-- Report Summary -->
-    <div class="report-summary">
-      <h4>📋 Ringkasan Laporan</h4>
-      <div class="summary-grid">
-        <div class="summary-item">
-          <span class="summary-label">Total Pendapatan (30 hari)</span>
-          <span class="summary-value" id="totalRevenue">Rp 0</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Rata-rata per Pesanan</span>
-          <span class="summary-value" id="avgOrderValue">Rp 0</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Alat Paling Sering Disewa</span>
-          <span class="summary-value" id="topEquipment">-</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Status Terbanyak</span>
-          <span class="summary-value" id="topStatus">-</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="form-grid">
+                  <div class="form-group-modern">
+                    <label for="equipmentName">
+                      <span class="label-required">*</span>
+                      Nama Alat
+                    </label>
+                    <input type="text" id="equipmentName" name="name" placeholder="Contoh: Tenda Dome 4 Orang" required>
+                  </div>
 
+                  <div class="form-group-modern">
+                    <label for="equipmentPrice">
+                      <span class="label-required">*</span>
+                      Harga Sewa (per hari)
+                    </label>
+                    <input type="number" id="equipmentPrice" name="price" min="0" placeholder="50000" required>
+                  </div>
+
+                  <div class="form-group-modern">
+                    <label for="equipmentCategory">Kategori</label>
+                    <select id="equipmentCategory" name="category">
+                      <option value="Tenda">🏕️ Tenda</option>
+                      <option value="Carrier">🎒 Carrier</option>
+                      <option value="Sleeping Bag">🛏️ Sleeping Bag</option>
+                      <option value="Kompor">🔥 Kompor</option>
+                      <option value="Aksesoris">⚙️ Aksesoris</option>
+                      <option value="Lainnya">📦 Lainnya</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group-modern">
+                    <label for="equipmentStock">Stok</label>
+                    <input type="number" id="equipmentStock" name="stock" min="0" value="1" placeholder="10">
+                  </div>
+
+                  <div class="form-group-modern full-width">
+                    <label for="equipmentDescription">Deskripsi</label>
+                    <textarea id="equipmentDescription" name="description" rows="3"
+                      placeholder="Deskripsi alat..."></textarea>
+                  </div>
+
+                  <!-- FILE INPUT - YANG DIPERBAIKI -->
+                  <!-- FILE INPUT - YANG BENAR -->
+                  <div class="form-group-modern full-width">
+                    <label for="equipmentImage">Gambar Alat</label>
+                    <div class="file-input-container">
+                      <!-- PENTING: Pakai style="display: none;" bukan class -->
+                      <input type="file" id="equipmentImage" name="image" accept="image/*" style="display: none;">
+                      <label for="equipmentImage" class="file-input-button" style="cursor: pointer;">
+                        <span class="file-icon">📸</span>
+                        <span class="file-text">Pilih Gambar</span>
+                      </label>
+                      <span class="file-name" id="fileName">Belum ada file dipilih</span>
+                      <small class="file-info">Format: JPG, PNG, GIF (Max 5MB)</small>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="form-actions-modern">
+                  <button type="submit" class="btn-submit-modern">
+                    <span class="btn-icon">💾</span>
+                    <span class="btn-text">Simpan</span>
+                  </button>
+                  <button type="button" class="btn-cancel-modern" onclick="hideEquipmentForm()">
+                    <span class="btn-icon">❌</span>
+                    <span class="btn-text">Batal</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Equipment Grid -->
+            <div class="equipment-grid-modern" id="equipmentGrid">
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Memuat data peralatan...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Reports -->
+        <div id="reportsTab" class="tab-content">
+          <div class="reports-section-modern">
+            <div class="section-header-card">
+              <div class="section-header-left">
+                <h3><span class="section-icon">📊</span> Laporan Penyewaan</h3>
+                <p class="section-desc">Export data pesanan ke file CSV</p>
+              </div>
+            </div>
+
+            <!-- Report Stats Grid -->
+            <div class="report-stats-grid-modern">
+              <div class="report-card-modern">
+                <div class="report-card-header">
+                  <span class="report-icon">📅</span>
+                  <h4>Hari Ini</h4>
+                </div>
+                <div class="report-card-body">
+                  <p class="report-number" id="reportToday">0</p>
+                  <p class="report-label">Pesanan</p>
+                </div>
+                <button class="btn-export-modern" onclick="exportReport('today')">
+                  <span class="btn-icon">📥</span>
+                  Export CSV
+                </button>
+              </div>
+
+              <div class="report-card-modern">
+                <div class="report-card-header">
+                  <span class="report-icon">📆</span>
+                  <h4>7 Hari Terakhir</h4>
+                </div>
+                <div class="report-card-body">
+                  <p class="report-number" id="report7Days">0</p>
+                  <p class="report-label">Pesanan</p>
+                </div>
+                <button class="btn-export-modern" onclick="exportReport('week')">
+                  <span class="btn-icon">📥</span>
+                  Export CSV
+                </button>
+              </div>
+
+              <div class="report-card-modern">
+                <div class="report-card-header">
+                  <span class="report-icon">📊</span>
+                  <h4>30 Hari Terakhir</h4>
+                </div>
+                <div class="report-card-body">
+                  <p class="report-number" id="report30Days">0</p>
+                  <p class="report-label">Pesanan</p>
+                </div>
+                <button class="btn-export-modern" onclick="exportReport('month')">
+                  <span class="btn-icon">📥</span>
+                  Export CSV
+                </button>
+              </div>
+
+              <div class="report-card-modern">
+                <div class="report-card-header">
+                  <span class="report-icon">📈</span>
+                  <h4>Semua Data</h4>
+                </div>
+                <div class="report-card-body">
+                  <p class="report-number" id="reportAll">0</p>
+                  <p class="report-label">Pesanan</p>
+                </div>
+                <button class="btn-export-modern" onclick="exportReport('all')">
+                  <span class="btn-icon">📥</span>
+                  Export CSV
+                </button>
+              </div>
+            </div>
+
+            <!-- Custom Date Range -->
+            <div class="custom-range-modern">
+              <h4><span class="section-icon">📅</span> Periode Kustom</h4>
+              <div class="form-grid">
+                <div class="form-group-modern">
+                  <label for="reportStartDate">Tanggal Mulai</label>
+                  <input type="date" id="reportStartDate">
+                </div>
+                <div class="form-group-modern">
+                  <label for="reportEndDate">Tanggal Akhir</label>
+                  <input type="date" id="reportEndDate">
+                </div>
+                <div class="form-group-modern">
+                  <label>&nbsp;</label>
+                  <button class="btn-export-custom-modern" onclick="exportCustomRange()">
+                    <span class="btn-icon">📥</span>
+                    Export Range
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Report Summary -->
+            <div class="report-summary-modern">
+              <h4><span class="section-icon">📋</span> Ringkasan Laporan (30 Hari)</h4>
+              <div class="summary-grid-modern">
+                <div class="summary-card-modern">
+                  <span class="summary-icon">💰</span>
+                  <div class="summary-info">
+                    <p class="summary-label">Total Pendapatan</p>
+                    <p class="summary-value" id="totalRevenue">Rp 0</p>
+                  </div>
+                </div>
+                <div class="summary-card-modern">
+                  <span class="summary-icon">📊</span>
+                  <div class="summary-info">
+                    <p class="summary-label">Rata-rata per Pesanan</p>
+                    <p class="summary-value" id="avgOrderValue">Rp 0</p>
+                  </div>
+                </div>
+                <div class="summary-card-modern">
+                  <span class="summary-icon">🏆</span>
+                  <div class="summary-info">
+                    <p class="summary-label">Alat Terlaris</p>
+                    <p class="summary-value" id="topEquipment">-</p>
+                  </div>
+                </div>
+                <div class="summary-card-modern">
+                  <span class="summary-icon">📈</span>
+                  <div class="summary-info">
+                    <p class="summary-label">Status Terbanyak</p>
+                    <p class="summary-value" id="topStatus">-</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
   <!-- Order Detail Modal -->
-  <div id="orderDetailModal" class="modal">
-    <div class="modal-content order-detail-modal">
-      <span class="close-modal" onclick="closeOrderDetailModal()">&times;</span>
-      <div id="orderDetailContent"></div>
+  <div id="orderDetailModal" class="modal-modern">
+    <div class="modal-overlay" onclick="closeOrderDetailModal()"></div>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><span class="modal-icon">📋</span> Detail Pesanan</h3>
+        <button class="btn-close-modal" onclick="closeOrderDetailModal()">✕</button>
+      </div>
+      <div class="modal-body" id="orderDetailContent">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Memuat detail pesanan...</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Basecamp Gear - Rental Alat Outdoor Terpercaya</p>
+  <!-- Footer -->
+  <footer class="footer-dashboard">
+    <div class="container">
+      <p>&copy; 2025 Basecamp Gear - Rental Alat Outdoor Terpercaya</p>
+      <p>📍 Dusun Jambu, Desa Tamansari, Kecamatan Licin | 📱 083 131 251 615</p>
+    </div>
   </footer>
 
+  <!-- Scripts - JANGAN GANTI URUTAN! -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="/js/dashboard.js"></script>
+  <script src="/js/equipment.js"></script>
+  <script src="/js/reports.js"></script>
+  <script src="/js/orders.js"></script>
+<script src="/js/receipt.js"></script>
 </body>
+
 </html>

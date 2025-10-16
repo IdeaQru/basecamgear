@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sewa peralatan outdoor berkualitas di Basecamp Gear - Tenda, Carrier, Sleeping Bag, dan lainnya">
   <title>Pemesanan - Basecamp Gear</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/order.css">
@@ -19,9 +19,14 @@
       </div>
       <ul class="nav-links">
         <li><a href="/">Beranda</a></li>
-        <li><a href="/order">Sewa Sekarang</a></li>
+        <li><a href="/order" class="active">Sewa Sekarang</a></li>
         <li><a href="/login">Login</a></li>
       </ul>
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </nav>
 
@@ -48,7 +53,7 @@
       <div class="equipment-catalog" id="equipmentCatalog">
         <div class="loading-spinner">
           <div class="spinner"></div>
-          <p>Loading katalog...</p>
+          <p>Memuat katalog...</p>
         </div>
       </div>
 
@@ -70,7 +75,7 @@
             <strong id="totalPrice">Rp 0</strong>
           </div>
           <button class="btn-checkout" onclick="showCheckoutForm()">
-            Lanjut ke Checkout
+            💳 Lanjut ke Checkout
           </button>
         </div>
       </div>
@@ -91,27 +96,25 @@
               <h4>Informasi Pribadi</h4>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="customerName">
-                  <span class="label-icon">👨</span>
-                  Nama Lengkap <span class="required">*</span>
-                </label>
-                <div class="input-wrapper">
-                  <input type="text" id="customerName" placeholder="Contoh: Budi Santoso" required>
-                  <span class="input-icon">✓</span>
-                </div>
+            <div class="form-group">
+              <label for="customerName">
+                <span class="label-icon">👨</span>
+                Nama Lengkap <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="customerName" placeholder="Contoh: Budi Santoso" required>
+                <span class="input-icon">✓</span>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="customerPhone">
-                  <span class="label-icon">📱</span>
-                  Nomor WhatsApp <span class="required">*</span>
-                </label>
-                <div class="input-wrapper">
-                  <input type="tel" id="customerPhone" placeholder="08xxxxxxxxxx" pattern="[0-9]{10,13}" required>
-                  <span class="input-icon">✓</span>
-                </div>
+            <div class="form-group">
+              <label for="customerPhone">
+                <span class="label-icon">📱</span>
+                Nomor WhatsApp <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="tel" id="customerPhone" placeholder="08xxxxxxxxxx" pattern="[0-9]{10,13}" required>
+                <span class="input-icon">✓</span>
               </div>
             </div>
 
@@ -134,27 +137,25 @@
               <h4>Periode Sewa</h4>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="startDate">
-                  <span class="label-icon">📆</span>
-                  Tanggal Ambil <span class="required">*</span>
-                </label>
-                <div class="input-wrapper">
-                  <input type="date" id="startDate" required onchange="calculateTotal()">
-                  <span class="input-icon">📅</span>
-                </div>
+            <div class="form-group">
+              <label for="startDate">
+                <span class="label-icon">📆</span>
+                Tanggal Ambil <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="date" id="startDate" required onchange="updateDurationDisplay(); calculateTotal();">
+                <span class="input-icon">📅</span>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="endDate">
-                  <span class="label-icon">📆</span>
-                  Tanggal Kembali <span class="required">*</span>
-                </label>
-                <div class="input-wrapper">
-                  <input type="date" id="endDate" required onchange="calculateTotal()">
-                  <span class="input-icon">📅</span>
-                </div>
+            <div class="form-group">
+              <label for="endDate">
+                <span class="label-icon">📆</span>
+                Tanggal Kembali <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="date" id="endDate" required onchange="updateDurationDisplay(); calculateTotal();">
+                <span class="input-icon">📅</span>
               </div>
             </div>
 
@@ -182,8 +183,7 @@
                 Permintaan Khusus (opsional)
               </label>
               <div class="textarea-wrapper">
-                <textarea id="notes" rows="4"
-                  placeholder="Contoh: Butuh antar jemput / Sewa untuk acara kantor / Dll"></textarea>
+                <textarea id="notes" rows="4" placeholder="Contoh: Butuh antar jemput / Sewa untuk acara kantor / Dll"></textarea>
               </div>
             </div>
           </div>
@@ -195,10 +195,8 @@
               <h4>Ketentuan Sewa</h4>
             </div>
             <ul class="terms-list">
-              <li><span class="check-icon">✓</span> Deposit akan dikembalikan setelah alat kembali dalam kondisi baik
-              </li>
-              <li><span class="check-icon">✓</span> Keterlambatan pengembalian dikenakan biaya 50% dari harga sewa per
-                hari</li>
+              <li><span class="check-icon">✓</span> Deposit akan dikembalikan setelah alat kembali dalam kondisi baik</li>
+              <li><span class="check-icon">✓</span> Keterlambatan pengembalian dikenakan biaya 50% dari harga sewa per hari</li>
               <li><span class="check-icon">✓</span> Alat yang rusak/hilang akan dikenakan biaya penggantian</li>
               <li><span class="check-icon">✓</span> Penyewa wajib menunjukkan KTP/SIM saat pengambilan</li>
             </ul>
@@ -265,5 +263,4 @@
 
   <script src="/js/order.js"></script>
 </body>
-
 </html>
