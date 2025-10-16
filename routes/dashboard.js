@@ -34,13 +34,14 @@ router.get('/api/orders', isAuthenticated, async (req, res) => {
 });
 
 // API untuk CREATE pesanan baru (Multiple Items)
-// API untuk CREATE pesanan baru (Multiple Items)
 router.post('/api/orders/create', isAuthenticated, async (req, res) => {
   try {
     const { name, phone, email, items, startDate, endDate, totalDays, totalPrice, notes, status } = req.body;
     
+    // Log untuk debugging
     console.log('Received order data:', { name, phone, email, items, startDate, endDate, totalDays, totalPrice });
     
+    // Validasi
     if (!name || !phone) {
       return res.status(400).json({
         success: false,
@@ -67,20 +68,16 @@ router.post('/api/orders/create', isAuthenticated, async (req, res) => {
     const randomNum = Math.floor(Math.random() * 1000);
     const orderNumber = `ORD-${timestamp}-${randomNum}`;
     
-    // Hitung total days dengan logika yang sama
+    // Hitung total days jika tidak dikirim
     let calculatedTotalDays = totalDays || 1;
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      start.setHours(0, 0, 0, 0);
-      end.setHours(0, 0, 0, 0);
-      
-      const diffTime = end.getTime() - start.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      calculatedTotalDays = diffDays === 0 ? 1 : diffDays;
+      calculatedTotalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+      if (calculatedTotalDays < 1) calculatedTotalDays = 1;
     }
     
-    // Hitung total price
+    // Hitung total price jika tidak dikirim
     let calculatedTotalPrice = totalPrice || 0;
     if (!totalPrice && items.length > 0) {
       const dailyTotal = items.reduce((sum, item) => {
@@ -129,7 +126,6 @@ router.post('/api/orders/create', isAuthenticated, async (req, res) => {
     });
   }
 });
-
 
 // API untuk UPDATE status pesanan (route spesifik harus di atas :id)
 router.put('/api/orders/:id/status', isAuthenticated, async (req, res) => {
